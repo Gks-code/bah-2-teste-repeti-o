@@ -3,19 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho de Compras</title>
+    <title>Carrinho de Compras - Premium Drinks & Vinhos</title>
     <link rel="stylesheet" href="assets/style/carrinho.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Sua barra de navegação aqui -->
-    
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/img/teste 1 logo.jpg" alt="Premium Drinks & Vinhos">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="sobre.html">Sobre Nós</a></li>
+            <li><a href="contato.html">Contato</a></li>
+            <li>
+                <a href="carrinho.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+            </li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
     <main class="carrinho-container">
         <h1><i class="fas fa-shopping-cart"></i> Seu Carrinho</h1>
         
         <div class="carrinho-content">
             <section class="itens-carrinho" id="itens-carrinho">
                 <!-- Itens serão carregados via JavaScript -->
+                <div class="carrinho-vazio">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Seu carrinho está vazio</p>
+                    <a href="produtos.html" class="btn">Ver Produtos</a>
+                </div>
             </section>
             
             <aside class="resumo-pedido">
@@ -24,20 +55,54 @@
                     <span>Subtotal</span>
                     <span id="subtotal">R$ 0,00</span>
                 </div>
+                <div class="resumo-item">
+                    <span>Frete</span>
+                    <span>Grátis</span>
+                </div>
                 <div class="resumo-item total">
                     <span>Total</span>
                     <span id="total">R$ 0,00</span>
                 </div>
                 
-                <button id="finalizar-compra" class="btn btn-primary">
+                <button id="finalizar-compra" class="btn" disabled>
                     <i class="fas fa-credit-card"></i> Finalizar Compra
                 </button>
             </aside>
         </div>
     </main>
-    
-    <!-- Seu rodapé aqui -->
-    
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Premium Drinks & Vinhos</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Av. Premium, 1000</p>
+                <p><i class="fas fa-phone"></i> (44) 99999-9999</p>
+                <p><i class="fas fa-envelope"></i> contato@premiumdrinks.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Úteis</h4>
+                <ul>
+                    <li><a href="politica-privacidade.html">Política de Privacidade</a></li>
+                    <li><a href="termos-uso.html">Termos de Uso</a></li>
+                    <li><a href="trocas-devolucoes.html">Trocas e Devoluções</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Premium Drinks & Vinhos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
     <script src="js/carrinho.js"></script>
+    
 </body>
 </html>
