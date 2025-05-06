@@ -399,64 +399,55 @@ footer {
     }
 }
 
-/* Ajustes específicos para mobile */
-@media screen and (max-width: 768px) {
-    .item-carrinho {
-        grid-template-columns: 80px 1fr;
-        grid-template-rows: auto auto;
-        padding: 1rem;
-    }
-    
-    .item-controle {
-        grid-column: 1 / -1;
-        justify-content: flex-start;
-        margin-top: 1rem;
-    }
-    
-    .item-controle button {
-        width: 36px;
-        height: 36px;
-        font-size: 1.1rem;
-    }
-    
-    /* Melhoria para toques em mobile */
-    .btn-comprar, .item-controle button, .remover-item {
-        min-height: 44px; /* Tamanho mínimo para toque */
-        touch-action: manipulation; /* Melhora a resposta ao toque */
-    }
-    
-    /* Previne o zoom duplo-toque */
-    .produto-info, .item-info {
-        touch-action: pan-y;
-    }
-    
-    /* Ajuste para o botão de finalizar compra */
-    #finalizar-compra {
-        padding: 1.2rem;
-        font-size: 1.2rem;
-    }
-}
-
-/* Adicione estas regras */
+/* Ajustes específicos para mobile - ADD ao final do seu CSS */
 @media (max-width: 768px) {
+    /* Melhora a área de toque */
     .btn-comprar, .item-controle button {
         min-width: 44px;
-        min-height: 44px; /* Tamanho mínimo para toques */
+        min-height: 44px;
+        font-size: 16px;
     }
     
+    /* Layout otimizado para mobile */
     .item-carrinho {
         grid-template-columns: 80px 1fr;
         grid-template-areas:
             "imagem info"
             "controle controle";
+        gap: 10px;
+        padding: 15px 10px;
     }
     
-    .item-imagem { grid-area: imagem; }
-    .item-info { grid-area: info; }
+    .item-imagem { 
+        grid-area: imagem;
+        align-self: center;
+    }
+    
+    .item-info { 
+        grid-area: info;
+        padding-right: 10px;
+    }
+    
     .item-controle { 
         grid-area: controle;
         justify-self: start;
         margin-top: 10px;
     }
+    
+    /* Previne o zoom indesejado */
+    input, select, textarea {
+        font-size: 16px;
+    }
 }
 
+/* Adicione ao seu CSS */
+.btn-comprar.added-to-cart {
+    background-color: #4CAF50 !important;
+    transform: scale(0.95);
+}
+
+/* Melhora a resposta ao toque */
+button, [data-id] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
