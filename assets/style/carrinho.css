@@ -1,0 +1,103 @@
+.carrinho-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.carrinho-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 992px) {
+    .carrinho-content {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+.itens-carrinho {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.item-carrinho {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.item-imagem img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.item-controle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.item-controle button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.remover-item {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.resumo-pedido {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    align-self: flex-start;
+    position: sticky;
+    top: 1rem;
+}
+
+.resumo-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.resumo-item.total {
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-bottom: none;
+}
+
+.carrinho-vazio {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.carrinho-vazio i {
+    font-size: 3rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+}

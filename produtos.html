@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Completo | Premium Drinks & Vinhos</title>
+    <link rel="stylesheet" href="assets/style/produtos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/img/teste 1 logo.jpg" alt="Premium Drinks & Vinhos">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="produtos.html" class="active">Produtos</a></li>
+            <li><a href="sobre_nos.html">Sobre Nós</a></li>
+            <li><a href="https://wa.me/554491689598?text=%C3%93la%20vim%20pelo%20Site%20">Contato</a></li>
+            <li><a href="carrinho.html"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+    
+
+    <!-- Filtros de Produtos -->
+    <section class="filtros">
+        <div class="container">
+            <h2>Nossos Produtos</h2>
+            <div class="filtros-container">
+                <div class="filtro">
+                    <label for="categoria">Categoria:</label>
+                    <select id="categoria">
+                        <option value="todos">Todos</option>
+                        <option value="whisky">Whisky</option>
+                        <option value="vinho">Vinho</option>
+                        <option value="charuto">Charuto</option>
+                        <option value="conhaque">Conhaque</option>
+                    </select>
+                </div>
+                <div class="filtro">
+                    <label for="preco">Preço:</label>
+                    <select id="preco">
+                        <option value="todos">Todos</option>
+                        <option value="0-500">Até R$ 500</option>
+                        <option value="500-1000">R$ 500 - R$ 1.000</option>
+                        <option value="1000-5000">R$ 1.000 - R$ 5.000</option>
+                        <option value="5000+">Acima de R$ 5.000</option>
+                    </select>
+                </div>
+                <div class="filtro">
+                    <label for="ordenar">Ordenar por:</label>
+                    <select id="ordenar">
+                        <option value="relevancia">Relevância</option>
+                        <option value="preco-asc">Preço: Menor para Maior</option>
+                        <option value="preco-desc">Preço: Maior para Menor</option>
+                        <option value="nome-asc">Nome: A-Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Listagem de Produtos -->
+    <section class="produtos-lista">
+        <div class="container">
+            <div class="produtos-grid" id="produtos-container">
+                <!-- Produtos serão carregados via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-content">
+
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="produtos.html" class="active">Produtos</a></li>
+                    <li><a href="sobre_nos.html">Sobre Nós</a></li>
+                    <li><a href="https://wa.me/554491689598?text=%C3%93la%20vim%20pelo%20Site%20">Contato</a></li>
+                    <li><a href="https://wa.me/554491689598?text=%C3%93la%20vim%20pelo%20Site%20">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contato</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Rua Premium, 123 - São Paulo</p>
+                <p><i class="fas fa-phone"></i> (11) 98765-4321</p>
+                <p><i class="fas fa-envelope"></i> contato@premiumdrinks.com.br</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Premium Drinks & Cigars. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/produtos.js"></script>
+</body>
+
+</html>

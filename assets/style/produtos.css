@@ -1,0 +1,605 @@
+/* Reset e Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+:root {
+    --primary-color: #1a1a1a;
+    --secondary-color: #8B0000;
+    --accent-color: #D4AF37;
+    --light-color: #f5f5f5;
+    --text-color: #333;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Barra de Navegação */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background-color: var(--primary-color);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    height: 50px;
+    width: 100%;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 2rem;
+}
+
+.nav-links a {
+    color: var(--light-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+}
+
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: var(--light-color);
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Banner */
+.banner {
+    height: 80vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/teste\ 1\ logo.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    margin-top: 80px;
+}
+
+.banner-content {
+    max-width: 600px;
+}
+
+.banner h1 {
+    font-size: 3.5rem;
+    color: var(--light-color);
+    margin-bottom: 1rem;
+}
+
+.banner p {
+    font-size: 1.2rem;
+    color: var(--light-color);
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background-color: #c9a227;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Seção de Destaques */
+.destaques {
+    padding: 5rem 5%;
+    text-align: center;
+}
+
+.destaques h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+    position: relative;
+}
+
+.destaques h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: var(--accent-color);
+}
+
+/* Estilos para os produtos em destaque */
+
+
+
+
+.produtos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.produto-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.produto-card:hover {
+    transform: translateY(-10px);
+}
+
+.produto-img {
+    height: 250px;
+    overflow: hidden;
+}
+
+.produto-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.produto-card:hover .produto-img img {
+    transform: scale(1.1);
+}
+
+.produto-info {
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.produto-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.produto-info p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.preco {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+
+
+
+/* Newsletter */
+.newsletter {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 4rem 5%;
+    text-align: center;
+}
+
+.newsletter h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.newsletter p {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.newsletter form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.newsletter input {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    font-size: 1rem;
+}
+
+.newsletter button {
+    padding: 0 1.5rem;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Rodapé */
+footer {
+    background-color: #222;
+    color: var(--light-color);
+    padding: 3rem 5% 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent-color);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: var(--accent-color);
+}
+
+.footer-section p {
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.footer-section i {
+    margin-right: 0.5rem;
+    color: var(--accent-color);
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icons a {
+    color: var(--light-color);
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--accent-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #444;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+/* Responsividade */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        right: -100%;
+        top: 80px;
+        height: calc(100vh - 80px);
+        width: 50%;
+        background-color: var(--primary-color);
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        transition: right 0.5s ease-in-out;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .banner h1 {
+        font-size: 2.5rem;
+    }
+
+    .banner p {
+        font-size: 1rem;
+    }
+
+    .newsletter form {
+        flex-direction: column;
+    }
+
+    .newsletter input {
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+    }
+
+    .newsletter button {
+        border-radius: 5px;
+        padding: 0.8rem;
+    }
+}
+
+/* Animação do Menu Hamburguer */
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+.toggle .line2 {
+    opacity: 0;
+}
+.toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+
+
+/* Estilos base (herdados do index.css) */
+:root {
+    --primary-color: #1a1a1a;
+    --secondary-color: #8B0000;
+    --accent-color: #D4AF37;
+    --light-color: #f5f5f5;
+    --text-color: #333;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+    background-color: #f9f9f9;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Estilos específicos para produtos.html */
+
+/* Filtros */
+.filtros {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem 0;
+    margin-top: 80px;
+}
+
+.filtros h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--accent-color);
+}
+
+.filtros-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.filtro {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+.filtro label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.filtro select {
+    padding: 0.7rem;
+    border-radius: 5px;
+    border: none;
+    background-color: white;
+    font-size: 1rem;
+}
+
+/* Listagem de Produtos */
+.produtos-lista {
+    padding: 3rem 0;
+}
+
+.produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.produto-item {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.produto-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.produto-imagem {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.produto-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.produto-item:hover .produto-imagem img {
+    transform: scale(1.05);
+}
+
+.produto-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.produto-info {
+    padding: 1.5rem;
+}
+
+.produto-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.produto-descricao {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.produto-preco {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.btn-comprar {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-comprar:hover {
+    background-color: #c9a227;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .filtros-container {
+        flex-direction: column;
+    }
+    
+    .produtos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+    
+    .produto-imagem {
+        height: 200px;
+    }
+}
+
+
+/* Banner */
+.banner {
+    height: 80vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/teste\ 1\ logo.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    margin-top: 80px;
+}
+
+.banner-content {
+    max-width: 600px;
+}
+
+.banner h1 {
+    font-size: 3.5rem;
+    color: var(--light-color);
+    margin-bottom: 1rem;
+}
+
+.banner p {
+    font-size: 1.2rem;
+    color: var(--light-color);
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background-color: #c9a227;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
