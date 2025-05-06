@@ -35,15 +35,6 @@ const produtos = [
         categoria: "conhaque",
         destaque: true
     },
-    {
-        id: 5,
-        nome: "Whisky Macallan 18 anos",
-        descricao: "Single malt escocês envelhecido por 18 anos.",
-        preco: 2999.90,
-        imagem: "assets/img/macallan.jpg",
-        categoria: "whisky",
-        destaque: false
-    }
 ];
 
 // Elementos do DOM
