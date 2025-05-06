@@ -20,6 +20,54 @@ body {
     line-height: 1.6;
 }
 
+
+* Banner */
+.banner {
+    height: 80vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/teste\ 1\ logo.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    margin-top: 80px;
+}
+
+.banner-content {
+    max-width: 600px;
+}
+
+.banner h1 {
+    font-size: 3.5rem;
+    color: var(--light-color);
+    margin-bottom: 1rem;
+}
+
+.banner p {
+    font-size: 1.2rem;
+    color: var(--light-color);
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background-color: #c9a227;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
 /* Barra de Navegação */
 .navbar {
     display: flex;
@@ -558,48 +606,3 @@ body {
 }
 
 
-/* Banner */
-.banner {
-    height: 80vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../img/teste\ 1\ logo.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    padding: 0 5%;
-    margin-top: 80px;
-}
-
-.banner-content {
-    max-width: 600px;
-}
-
-.banner h1 {
-    font-size: 3.5rem;
-    color: var(--light-color);
-    margin-bottom: 1rem;
-}
-
-.banner p {
-    font-size: 1.2rem;
-    color: var(--light-color);
-    margin-bottom: 2rem;
-}
-
-.btn {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: var(--primary-color);
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 5px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.btn:hover {
-    background-color: #c9a227;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}

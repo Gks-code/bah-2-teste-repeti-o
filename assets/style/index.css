@@ -374,6 +374,17 @@ footer {
     color: #aaa;
 }
 
+/* Animação do Menu Hamburguer */
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+.toggle .line2 {
+    opacity: 0;
+}
+.toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
 /* Responsividade */
 @media screen and (max-width: 768px) {
     .nav-links {
@@ -420,13 +431,3 @@ footer {
     }
 }
 
-/* Animação do Menu Hamburguer */
-.toggle .line1 {
-    transform: rotate(-45deg) translate(-5px, 6px);
-}
-.toggle .line2 {
-    opacity: 0;
-}
-.toggle .line3 {
-    transform: rotate(45deg) translate(-5px, -6px);
-}
