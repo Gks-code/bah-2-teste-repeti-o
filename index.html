@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Completo | Premium Drinks & Vinhos</title>
-    <link rel="stylesheet" href="assets/style/produtos.css">
+    <title>Premium Drinks & Vinhos - Loja de Bebidas e Charutos</title>
+    <link rel="stylesheet" href="assets/style/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
+    
     <!-- Barra de Navegação -->
     <nav class="navbar">
         <div class="logo">
-            <img src="assets/img/teste 1 logo.jpg" alt="Premium Drinks & Vinhos">
+            <img src="assets/img/teste 1 logo.jpg" alt="">
         </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="produtos.html" class="active">Produtos</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
             <li><a href="sobre_nos.html">Sobre Nós</a></li>
-            <li><a href="https://wa.me/554491689598?text=%C3%93la%20vim%20pelo%20Site%20">Contato</a></li>
-            <li><a href="carrinho.html"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
+            <li><a href="pages/contato.html">Contato</a></li>
+            <li><a href=""><i class="fas fa-shopping-cart"></i></a></li>
         </ul>
         <div class="burger">
             <div class="line1"></div>
@@ -28,36 +27,43 @@
             <div class="line3"></div>
         </div>
     </nav>
-    
 
-     <!-- Banner Principal -->
- <section class="banner">
-    <div class="banner-content">
-        <h1>Os Melhores Charutos e Bebidas</h1>
-        <p>Seleção premium para os verdadeiros conhecedores</p>
-        <a href="pages/produtos.html" class="btn">Explorar Catálogo</a>
-    </div>
-</section>
-    <!-- Listagem de Produtos -->
-    <section class="produtos-lista">
-        <div class="container">
-            <div class="produtos-grid" id="produtos-container">
-                <!-- Produtos serão carregados via JavaScript -->
-            </div>
+    <!-- Banner Principal -->
+    <section class="banner">
+        <div class="banner-content">
+            <h1>Os Melhores Charutos e Bebidas</h1>
+            <p>Seleção premium para os verdadeiros conhecedores</p>
+            <a href="pages/produtos.html" class="btn">Explorar Catálogo</a>
         </div>
+    </section>
+
+    <!-- Destaques -->
+    <section class="destaques">
+        <h2>Nossos Destaques</h2>
+        <div class="produtos-container" id="destaques">
+            <!-- Produtos serão inseridos via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h3>Assine nossa Newsletter</h3>
+        <p>Receba ofertas exclusivas e novidades</p>
+        <form>
+            <input type="email" placeholder="Seu melhor e-mail" required>
+            <button type="submit" class="btn">Assinar</button>
+        </form>
     </section>
 
     <!-- Rodapé -->
     <footer>
         <div class="footer-content">
-
             <div class="footer-section">
                 <h4>Links Rápidos</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="produtos.html" class="active">Produtos</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
                     <li><a href="sobre_nos.html">Sobre Nós</a></li>
-                    <li><a href="https://wa.me/554491689598?text=%C3%93la%20vim%20pelo%20Site%20">Contato</a></li>
                     <li><a href="https://wa.me/554491689598?text=%C3%93la%20vim%20pelo%20Site%20">Contato</a></li>
                 </ul>
             </div>
@@ -83,5 +89,4 @@
 
     <script src="js/index.js"></script>
 </body>
-
 </html>

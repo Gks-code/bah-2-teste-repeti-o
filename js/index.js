@@ -1,354 +1,208 @@
-// Array completo de produtos
+// Array de produtos (bebidas e charutos)
 const produtos = [
     {
         id: 1,
         nome: "Whisky Johnnie Walker Blue Label",
-        descricao: "Blended Scotch Whisky de luxo com sabores complexos e textura aveludada. Perfeito para ocasiões especiais.",
-        preco: 1899.90,
+        descricao: "Blended Scotch Whisky de luxo com sabores complexos.",
+        preco: 1899.90, // Alterado para número para facilitar cálculos
         imagem: "assets/img/1.jpg",
-        categoria: "whisky",
-        destaque: true
+        categoria: "whisky"
     },
     {
         id: 2,
         nome: "Charuto Cohiba Siglo VI",
-        descricao: "Um dos charutos mais cobiçados do mundo, feito à mão em Cuba com folhas de tabaco selecionadas.",
+        descricao: "Um dos charutos mais cobiçados do mundo, feito à mão em Cuba.",
         preco: 599.90,
         imagem: "assets/img/Charuto Cohiba Siglo VI.jpg",
-        categoria: "charuto",
-        destaque: true
+        categoria: "charuto"
     },
     {
         id: 3,
         nome: "Vinho Château Lafite Rothschild 2015",
-        descricao: "Um dos vinhos mais prestigiados de Bordeaux, safra excepcional com aromas de frutas escuras e especiarias.",
+        descricao: "Um dos vinhos mais prestigiados de Bordeaux, safra excepcional.",
         preco: 4999.90,
         imagem: "assets/img/Vinho Château Lafite Rothschild 2015.jpg",
-        categoria: "vinho",
-        destaque: true
+        categoria: "vinho"
     },
     {
         id: 4,
         nome: "Conhaque Louis XIII",
-        descricao: "O ápice da arte do conhaque, envelhecido por décadas em barris de carvalho, com notas de frutas cristalizadas e baunilha.",
+        descricao: "O ápice da arte do conhaque, envelhecido por décadas.",
         preco: 12999.90,
         imagem: "assets/img/Conhaque Louis XIII.jpg",
-        categoria: "conhaque",
-        destaque: true
-    },
-    {
-        id: 5,
-        nome: "Whisky Macallan 18 anos",
-        descricao: "Single malt escocês envelhecido por 18 anos em barris de carvalho, com notas de chocolate e frutas secas.",
-        preco: 2999.90,
-        imagem: "assets/img/Conhaque Louis XIII.jpg",
-        categoria: "whisky",
-        destaque: false
-    },
-    {
-        id: 6,
-        nome: "Vinho Dom Perignon 2012",
-        descricao: "Champagne vintage francês com bolhas refinadas e aromas complexos de frutas brancas e amêndoas.",
-        preco: 1599.90,
-        imagem: "assets/img/Conhaque Louis XIII.jpg",
-        categoria: "vinho",
-        destaque: false
-    },
-    {
-        id: 7,
-        nome: "Charuto Montecristo No. 2",
-        descricao: "Charuto cubano clássico com formato torpedo, oferecendo sabores ricos de madeira e nozes.",
-        preco: 399.90,
-        imagem: "assets/img/Conhaque Louis XIII.jpg",
-        categoria: "charuto",
-        destaque: false
-    },
-    {
-        id: 8,
-        nome: "Whisky Jack Daniel's Single Barrel",
-        descricao: "Whisky Tennessee selecionado de barris únicos, com carácter marcante e notas de caramelo.",
-        preco: 499.90,
-        imagem: "assets/img/Conhaque Louis XIII.jpg",
-        categoria: "whisky",
-        destaque: false
+        categoria: "conhaque"
     }
 ];
 
-// Elementos do DOM
-const produtosContainer = document.getElementById('produtos-container');
-const categoriaSelect = document.getElementById('categoria');
-const precoSelect = document.getElementById('preco');
-const ordenarSelect = document.getElementById('ordenar');
-const cartCount = document.getElementById('cart-count');
-
-// Carregar produtos
-function carregarProdutos() {
-    // Limpar container
-    produtosContainer.innerHTML = '';
-    
-    // Obter valores dos filtros
-    const categoria = categoriaSelect.value;
-    const preco = precoSelect.value;
-    const ordenar = ordenarSelect.value;
-    
-    // Filtrar produtos
-    let produtosFiltrados = produtos.filter(produto => {
-        // Filtro por categoria
-        if (categoria !== 'todos' && produto.categoria !== categoria) {
-            return false;
-        }
-        
-        // Filtro por preço
-        switch(preco) {
-            case '0-500':
-                return produto.preco <= 500;
-            case '500-1000':
-                return produto.preco > 500 && produto.preco <= 1000;
-            case '1000-5000':
-                return produto.preco > 1000 && produto.preco <= 5000;
-            case '5000+':
-                return produto.preco > 5000;
-            default:
-                return true;
-        }
+// Função para verificar se a imagem existe
+function verificarImagem(url) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
     });
-    
-    // Ordenar produtos
-    switch(ordenar) {
-        case 'preco-asc':
-            produtosFiltrados.sort((a, b) => a.preco - b.preco);
-            break;
-        case 'preco-desc':
-            produtosFiltrados.sort((a, b) => b.preco - a.preco);
-            break;
-        case 'nome-asc':
-            produtosFiltrados.sort((a, b) => a.nome.localeCompare(b.nome));
-            break;
-        default:
-            // Ordem padrão (destaque primeiro)
-            produtosFiltrados.sort((a, b) => b.destaque - a.destaque);
+}
+
+// Sistema de Carrinho
+const Carrinho = {
+    // Adicionar item ao carrinho
+    adicionarItem: function(produtoId) {
+        const produto = produtos.find(p => p.id === produtoId);
+        if (!produto) return;
+
+        let carrinho = this.obterCarrinho();
+        const itemExistente = carrinho.find(item => item.id === produtoId);
+
+        if (itemExistente) {
+            itemExistente.quantidade++;
+        } else {
+            carrinho.push({
+                id: produto.id,
+                nome: produto.nome,
+                preco: produto.preco,
+                imagem: produto.imagem,
+                quantidade: 1
+            });
+        }
+
+        this.salvarCarrinho(carrinho);
+        this.atualizarContador();
+        this.mostrarFeedback(produtoId);
+    },
+
+    // Remover item do carrinho
+    removerItem: function(produtoId) {
+        let carrinho = this.obterCarrinho().filter(item => item.id !== produtoId);
+        this.salvarCarrinho(carrinho);
+        this.atualizarContador();
+    },
+
+    // Atualizar quantidade de um item
+    atualizarQuantidade: function(produtoId, novaQuantidade) {
+        if (novaQuantidade < 1) {
+            this.removerItem(produtoId);
+            return;
+        }
+
+        let carrinho = this.obterCarrinho();
+        const item = carrinho.find(item => item.id === produtoId);
+        
+        if (item) {
+            item.quantidade = novaQuantidade;
+            this.salvarCarrinho(carrinho);
+            this.atualizarContador();
+        }
+    },
+
+    // Obter carrinho do localStorage
+    obterCarrinho: function() {
+        return JSON.parse(localStorage.getItem('carrinho')) || [];
+    },
+
+    // Salvar carrinho no localStorage
+    salvarCarrinho: function(carrinho) {
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    },
+
+    // Calcular total do carrinho
+    calcularTotal: function() {
+        const carrinho = this.obterCarrinho();
+        return carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+    },
+
+    // Atualizar contador no cabeçalho
+    atualizarContador: function() {
+        const carrinho = this.obterCarrinho();
+        const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
+        const contador = document.getElementById('cart-count');
+        
+        if (contador) {
+            contador.textContent = totalItens;
+        }
+    },
+
+    // Mostrar feedback visual ao adicionar item
+    mostrarFeedback: function(produtoId) {
+        const botao = document.querySelector(`.btn-comprar[data-id="${produtoId}"]`);
+        if (!botao) return;
+
+        botao.textContent = '✔ Adicionado';
+        botao.style.backgroundColor = '#4CAF50';
+        
+        setTimeout(() => {
+            botao.textContent = 'Adicionar ao Carrinho';
+            botao.style.backgroundColor = '';
+        }, 2000);
     }
+};
+
+// Função principal para carregar os produtos
+async function carregarProdutosDestaque() {
+    const container = document.getElementById('destaques');
+    if (!container) return;
     
-    // Exibir produtos
-    produtosFiltrados.forEach(produto => {
+    container.innerHTML = ''; // Limpar container
+
+    for (const produto of produtos) {
+        const caminhoImagem = produto.imagem;
+        const imagemValida = await verificarImagem(caminhoImagem);
+        
         const produtoHTML = `
-            <div class="produto-item">
-                <div class="produto-imagem">
-                    <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.src='../assets/img/placeholder.jpg'">
-                    ${produto.destaque ? '<span class="produto-tag">Destaque</span>' : ''}
+            <div class="produto-card">
+                <div class="produto-img">
+                    <img src="${imagemValida ? caminhoImagem : 'assets/img/placeholder.jpg'}" 
+                         alt="${produto.nome}"
+                         onerror="this.src='assets/img/placeholder.jpg'">
                 </div>
                 <div class="produto-info">
                     <h3>${produto.nome}</h3>
-                    <p class="produto-descricao">${produto.descricao}</p>
-                    <div class="produto-preco">R$ ${produto.preco.toFixed(2).replace('.', ',')}</div>
-                    <button class="btn-comprar" data-id="${produto.id}">Adicionar ao Carrinho</button>
+                    <p>${produto.descricao}</p>
+                    <div class="preco">R$ ${produto.preco.toFixed(2).replace('.', ',')}</div>
+                    <button class="btn btn-comprar" data-id="${produto.id}">Adicionar ao Carrinho</button>
                 </div>
             </div>
         `;
-        produtosContainer.innerHTML += produtoHTML;
+        
+        container.innerHTML += produtoHTML;
+    }
+
+    // Adicionar eventos aos botões
+    document.querySelectorAll('.btn-comprar').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const produtoId = parseInt(this.dataset.id);
+            Carrinho.adicionarItem(produtoId);
+        });
     });
-    
-
 }
-
-
-
-
 
 // Menu Mobile
 const burger = document.querySelector('.burger');
 const navLinks = document.querySelector('.nav-links');
 
-burger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    burger.classList.toggle('toggle');
-});
+if (burger && navLinks) {
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        burger.classList.toggle('toggle');
+    });
 
-// Event listeners para filtros
-categoriaSelect.addEventListener('change', carregarProdutos);
-precoSelect.addEventListener('change', carregarProdutos);
-ordenarSelect.addEventListener('change', carregarProdutos);
+    // Fechar menu ao clicar em um link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            burger.classList.remove('toggle');
+        });
+    });
+}
+
+
 
 // Inicializar
 document.addEventListener('DOMContentLoaded', () => {
-    carregarProdutos();
-});
-
-// Sistema de Carrinho (adicionar estas funções ao seu código)
-
-// Função para adicionar produto ao carrinho
-function adicionarAoCarrinho(event) {
-    const produtoId = parseInt(event.target.dataset.id);
-    const produto = produtos.find(p => p.id === produtoId);
-
-    if (!produto) return;
-
-    // Obter carrinho atual do localStorage
-    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    carregarProdutosDestaque();
+    Carrinho.atualizarContador();
     
-    // Verificar se o produto já está no carrinho
-    const itemExistente = carrinho.find(item => item.id === produtoId);
-
-    if (itemExistente) {
-        itemExistente.quantidade += 1;
-    } else {
-        // Adicionar novo item ao carrinho
-        carrinho.push({
-            id: produto.id,
-            nome: produto.nome,
-            preco: produto.preco,
-            imagem: produto.imagem,
-            quantidade: 1
-        });
-    }
-
-    // Salvar no localStorage
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    
-    // Atualizar contador do carrinho
-    atualizarContadorCarrinho();
-    
-    // Feedback visual
-    event.target.textContent = '✔ Adicionado';
-    event.target.style.backgroundColor = '#4CAF50';
-    setTimeout(() => {
-        event.target.textContent = 'Adicionar ao Carrinho';
-        event.target.style.backgroundColor = '';
-    }, 2000);
-}
-
-// Função para atualizar o contador do carrinho
-function atualizarContadorCarrinho() {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
-    
-    // Atualizar no DOM
-    if (cartCount) {
-        cartCount.textContent = totalItens;
-    }
-}
-
-// Função para carregar os produtos (modifique sua função existente)
-function carregarProdutos() {
-    // Limpar container
-    produtosContainer.innerHTML = '';
-    
-    // Obter valores dos filtros
-    const categoria = categoriaSelect.value;
-    const preco = precoSelect.value;
-    const ordenar = ordenarSelect.value;
-    
-    // Filtrar produtos
-    let produtosFiltrados = produtos.filter(produto => {
-        // Filtro por categoria
-        if (categoria !== 'todos' && produto.categoria !== categoria) {
-            return false;
-        }
-        
-        // Filtro por preço
-        switch(preco) {
-            case '0-500':
-                return produto.preco <= 500;
-            case '500-1000':
-                return produto.preco > 500 && produto.preco <= 1000;
-            case '1000-5000':
-                return produto.preco > 1000 && produto.preco <= 5000;
-            case '5000+':
-                return produto.preco > 5000;
-            default:
-                return true;
-        }
-    });
-    
-    // Ordenar produtos
-    switch(ordenar) {
-        case 'preco-asc':
-            produtosFiltrados.sort((a, b) => a.preco - b.preco);
-            break;
-        case 'preco-desc':
-            produtosFiltrados.sort((a, b) => b.preco - a.preco);
-            break;
-        case 'nome-asc':
-            produtosFiltrados.sort((a, b) => a.nome.localeCompare(b.nome));
-            break;
-        default:
-            // Ordem padrão (destaque primeiro)
-            produtosFiltrados.sort((a, b) => b.destaque - a.destaque);
-    }
-    
-    // Exibir produtos
-    produtosFiltrados.forEach(produto => {
-        const produtoHTML = `
-            <div class="produto-item">
-                <div class="produto-imagem">
-                    <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.src='../assets/img/placeholder.jpg'">
-                    ${produto.destaque ? '<span class="produto-tag">Destaque</span>' : ''}
-                </div>
-                <div class="produto-info">
-                    <h3>${produto.nome}</h3>
-                    <p class="produto-descricao">${produto.descricao}</p>
-                    <div class="produto-preco">R$ ${produto.preco.toFixed(2).replace('.', ',')}</div>
-                    <button class="btn-comprar" data-id="${produto.id}">Adicionar ao Carrinho</button>
-                </div>
-            </div>
-        `;
-        produtosContainer.innerHTML += produtoHTML;
-    });
-    
-    // Adicionar eventos aos botões de compra
-    document.querySelectorAll('.btn-comprar').forEach(btn => {
-        btn.addEventListener('click', adicionarAoCarrinho);
-    });
-}
-
-// Função para limpar o carrinho
-function limparCarrinho() {
-    localStorage.removeItem('carrinho');
-    atualizarContadorCarrinho();
-}
-
-// Função para obter todos os itens do carrinho
-function obterItensCarrinho() {
-    return JSON.parse(localStorage.getItem('carrinho')) || [];
-}
-
-// Função para calcular o total do carrinho
-function calcularTotalCarrinho() {
-    const carrinho = obterItensCarrinho();
-    return carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
-}
-
-// Função para remover item do carrinho
-function removerItemCarrinho(produtoId) {
-    let carrinho = obterItensCarrinho();
-    carrinho = carrinho.filter(item => item.id !== produtoId);
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    atualizarContadorCarrinho();
-}
-
-// Função para atualizar quantidade de um item
-function atualizarQuantidadeItem(produtoId, novaQuantidade) {
-    if (novaQuantidade < 1) {
-        removerItemCarrinho(produtoId);
-        return;
-    }
-
-    let carrinho = obterItensCarrinho();
-    const item = carrinho.find(item => item.id === produtoId);
-    
-    if (item) {
-        item.quantidade = novaQuantidade;
-        localStorage.setItem('carrinho', JSON.stringify(carrinho));
-        atualizarContadorCarrinho();
-    }
-}
-
-// Inicializar carrinho quando a página carregar
-document.addEventListener('DOMContentLoaded', () => {
-    carregarProdutos();
-    atualizarContadorCarrinho();
-    
-    // Verificar se há carrinho no localStorage, se não, criar vazio
+    // Inicializar carrinho se não existir
     if (!localStorage.getItem('carrinho')) {
         localStorage.setItem('carrinho', JSON.stringify([]));
     }
