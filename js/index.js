@@ -1,43 +1,49 @@
-// Array completo de produtos
 const produtos = [
     {
         id: 1,
         nome: "Whisky Johnnie Walker Blue Label",
-        descricao: "Blended Scotch Whisky de luxo com sabores complexos e textura aveludada. Perfeito para ocasiões especiais.",
+        descricao: "Blended Scotch Whisky de luxo com sabores complexos e textura aveludada.",
         preco: 1899.90,
         imagem: "assets/img/1.jpg",
         categoria: "whisky",
         destaque: true
     },
     {
-        id: 1,
-        nome: "Whisky Johnnie Walker Blue Label",
-        descricao: "Blended Scotch Whisky de luxo com sabores complexos e textura aveludada. Perfeito para ocasiões especiais.",
-        preco: 1899.90,
-        imagem: "assets/img/1.jpg",
-        categoria: "whisky",
+        id: 2,
+        nome: "Charuto Cohiba Siglo VI",
+        descricao: "Um dos charutos mais cobiçados do mundo, feito à mão em Cuba.",
+        preco: 599.90,
+        imagem: "assets/img/Charuto Cohiba Siglo VI.jpg",
+        categoria: "charuto",
         destaque: true
     },
     {
-        id: 1,
-        nome: "Whisky Johnnie Walker Blue Label",
-        descricao: "Blended Scotch Whisky de luxo com sabores complexos e textura aveludada. Perfeito para ocasiões especiais.",
-        preco: 1899.90,
-        imagem: "assets/img/1.jpg",
-        categoria: "whisky",
+        id: 3,
+        nome: "Vinho Château Lafite Rothschild 2015",
+        descricao: "Um dos vinhos mais prestigiados de Bordeaux, safra excepcional.",
+        preco: 4999.90,
+        imagem: "assets/img/Vinho Château Lafite Rothschild 2015.jpg",
+        categoria: "vinho",
         destaque: true
     },
     {
-        id: 1,
-        nome: "Whisky Johnnie Walker Blue Label",
-        descricao: "Blended Scotch Whisky de luxo com sabores complexos e textura aveludada. Perfeito para ocasiões especiais.",
-        preco: 1899.90,
-        imagem: "assets/img/1.jpg",
-        categoria: "whisky",
+        id: 4,
+        nome: "Conhaque Louis XIII",
+        descricao: "O ápice da arte do conhaque, envelhecido por décadas.",
+        preco: 12999.90,
+        imagem: "assets/img/Conhaque Louis XIII.jpg",
+        categoria: "conhaque",
         destaque: true
     },
-   
-    // ... (outros produtos permanecem iguais)
+    {
+        id: 5,
+        nome: "Whisky Macallan 18 anos",
+        descricao: "Single malt escocês envelhecido por 18 anos.",
+        preco: 2999.90,
+        imagem: "assets/img/macallan.jpg",
+        categoria: "whisky",
+        destaque: false
+    }
 ];
 
 // Elementos do DOM

@@ -451,3 +451,48 @@ button, [data-id] {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
 }
+
+/* Estilos específicos para mobile */
+@media (max-width: 768px) {
+    .item-carrinho {
+        grid-template-columns: 80px 1fr;
+        grid-template-areas: 
+            "imagem info"
+            "controle controle";
+        padding: 15px 10px;
+    }
+    
+    .item-imagem {
+        grid-area: imagem;
+        align-self: center;
+    }
+    
+    .item-info {
+        grid-area: info;
+        padding-right: 10px;
+    }
+    
+    .item-controle {
+        grid-area: controle;
+        justify-self: start;
+        margin-top: 10px;
+    }
+    
+    /* Melhoria para toques */
+    .btn-comprar, .item-controle button, .remover-item {
+        min-height: 44px;
+        min-width: 44px;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .btn-comprar.added-feedback {
+        background-color: #4CAF50 !important;
+        transform: scale(0.95);
+        transition: all 0.3s;
+    }
+    
+    /* Previne zoom em inputs */
+    input, select, textarea {
+        font-size: 16px;
+    }
+}
