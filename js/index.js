@@ -82,52 +82,32 @@ const precoSelect = document.getElementById('preco');
 const ordenarSelect = document.getElementById('ordenar');
 const cartCount = document.getElementById('cart-count');
 
-// Função para verificar se a imagem existe
-function verificarImagem(url) {
-    return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
-        img.src = url;
-    });
-}
-
 // Função para formatar preço
 function formatarPreco(preco) {
     return 'R$ ' + preco.toFixed(2).replace('.', ',');
 }
 
-// Função principal para carregar os produtos em destaque
-async function carregarProdutosDestaque() {
+// Função para carregar produtos em destaque
+function carregarDestaques() {
     if (!destaquesContainer) return;
     
     const produtosDestaque = produtos.filter(produto => produto.destaque);
     
-    for (const produto of produtosDestaque) {
-        const caminhoImagem = produto.imagem;
-        const imagemValida = await verificarImagem(caminhoImagem);
-        
-        const produtoHTML = `
-            <div class="produto-card">
-                <div class="produto-img">
-                    <img src="${imagemValida ? caminhoImagem : 'assets/img/placeholder.jpg'}" 
-                         alt="${produto.nome}"
-                         onerror="this.src='assets/img/placeholder.jpg'">
-                    <span class="produto-tag">Destaque</span>
-                </div>
-                <div class="produto-info">
-                    <h3>${produto.nome}</h3>
-                    <p>${produto.descricao}</p>
-                    <div class="preco">${formatarPreco(produto.preco)}</div>
-                    <button class="btn btn-comprar" data-id="${produto.id}">Adicionar ao Carrinho</button>
-                </div>
+    destaquesContainer.innerHTML = produtosDestaque.map(produto => `
+        <div class="produto-card">
+            <div class="produto-img">
+                <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.src='assets/img/placeholder.jpg'">
             </div>
-        `;
-        
-        destaquesContainer.innerHTML += produtoHTML;
-    }
+            <div class="produto-info">
+                <h3>${produto.nome}</h3>
+                <p>${produto.descricao}</p>
+                <div class="preco">${formatarPreco(produto.preco)}</div>
+                <button class="btn btn-comprar" data-id="${produto.id}">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    `).join('');
     
-    // Adicionar eventos aos botões de compra
+    // Adicionar eventos aos botões
     document.querySelectorAll('#destaques .btn-comprar').forEach(btn => {
         btn.addEventListener('click', adicionarAoCarrinho);
     });
@@ -137,72 +117,49 @@ async function carregarProdutosDestaque() {
 function carregarProdutos() {
     if (!produtosContainer) return;
     
-    // Limpar container
-    produtosContainer.innerHTML = '';
-    
     // Obter valores dos filtros
-    const categoria = categoriaSelect ? categoriaSelect.value : 'todos';
-    const preco = precoSelect ? precoSelect.value : 'todos';
-    const ordenar = ordenarSelect ? ordenarSelect.value : 'padrao';
+    const categoria = categoriaSelect.value;
+    const preco = precoSelect.value;
+    const ordenar = ordenarSelect.value;
     
     // Filtrar produtos
     let produtosFiltrados = produtos.filter(produto => {
-        // Filtro por categoria
-        if (categoria !== 'todos' && produto.categoria !== categoria) {
-            return false;
-        }
+        if (categoria !== 'todos' && produto.categoria !== categoria) return false;
         
-        // Filtro por preço
         switch(preco) {
-            case '0-500':
-                return produto.preco <= 500;
-            case '500-1000':
-                return produto.preco > 500 && produto.preco <= 1000;
-            case '1000-5000':
-                return produto.preco > 1000 && produto.preco <= 5000;
-            case '5000+':
-                return produto.preco > 5000;
-            default:
-                return true;
+            case '0-500': return produto.preco <= 500;
+            case '500-1000': return produto.preco > 500 && produto.preco <= 1000;
+            case '1000-5000': return produto.preco > 1000 && produto.preco <= 5000;
+            case '5000+': return produto.preco > 5000;
+            default: return true;
         }
     });
     
     // Ordenar produtos
     switch(ordenar) {
-        case 'preco-asc':
-            produtosFiltrados.sort((a, b) => a.preco - b.preco);
-            break;
-        case 'preco-desc':
-            produtosFiltrados.sort((a, b) => b.preco - a.preco);
-            break;
-        case 'nome-asc':
-            produtosFiltrados.sort((a, b) => a.nome.localeCompare(b.nome));
-            break;
-        default:
-            // Ordem padrão (destaque primeiro)
-            produtosFiltrados.sort((a, b) => b.destaque - a.destaque);
+        case 'preco-asc': produtosFiltrados.sort((a, b) => a.preco - b.preco); break;
+        case 'preco-desc': produtosFiltrados.sort((a, b) => b.preco - a.preco); break;
+        case 'nome-asc': produtosFiltrados.sort((a, b) => a.nome.localeCompare(b.nome)); break;
+        default: produtosFiltrados.sort((a, b) => b.destaque - a.destaque);
     }
     
     // Exibir produtos
-    produtosFiltrados.forEach(produto => {
-        const produtoHTML = `
-            <div class="produto-item">
-                <div class="produto-imagem">
-                    <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.src='assets/img/placeholder.jpg'">
-                    ${produto.destaque ? '<span class="produto-tag">Destaque</span>' : ''}
-                </div>
-                <div class="produto-info">
-                    <h3>${produto.nome}</h3>
-                    <p class="produto-descricao">${produto.descricao}</p>
-                    <div class="produto-preco">${formatarPreco(produto.preco)}</div>
-                    <button class="btn-comprar" data-id="${produto.id}">Adicionar ao Carrinho</button>
-                </div>
+    produtosContainer.innerHTML = produtosFiltrados.map(produto => `
+        <div class="produto-item">
+            <div class="produto-imagem">
+                <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.src='assets/img/placeholder.jpg'">
+                ${produto.destaque ? '<span class="produto-tag">Destaque</span>' : ''}
             </div>
-        `;
-        produtosContainer.innerHTML += produtoHTML;
-    });
+            <div class="produto-info">
+                <h3>${produto.nome}</h3>
+                <p class="produto-descricao">${produto.descricao}</p>
+                <div class="produto-preco">${formatarPreco(produto.preco)}</div>
+                <button class="btn-comprar" data-id="${produto.id}">Adicionar ao Carrinho</button>
+            </div>
+        </div>
+    `).join('');
     
-    // Adicionar eventos aos botões de compra
+    // Adicionar eventos aos botões
     document.querySelectorAll('.btn-comprar').forEach(btn => {
         btn.addEventListener('click', adicionarAoCarrinho);
     });
@@ -212,19 +169,14 @@ function carregarProdutos() {
 function adicionarAoCarrinho(event) {
     const produtoId = parseInt(event.target.dataset.id);
     const produto = produtos.find(p => p.id === produtoId);
-
     if (!produto) return;
 
-    // Obter carrinho atual do localStorage
     let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    
-    // Verificar se o produto já está no carrinho
     const itemExistente = carrinho.find(item => item.id === produtoId);
 
     if (itemExistente) {
         itemExistente.quantidade += 1;
     } else {
-        // Adicionar novo item ao carrinho
         carrinho.push({
             id: produto.id,
             nome: produto.nome,
@@ -234,68 +186,56 @@ function adicionarAoCarrinho(event) {
         });
     }
 
-    // Salvar no localStorage
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    
-    // Atualizar contador do carrinho
     atualizarContadorCarrinho();
     
     // Feedback visual
-    event.target.textContent = '✔ Adicionado';
-    event.target.style.backgroundColor = '#4CAF50';
+    const btn = event.target;
+    btn.textContent = '✔ Adicionado';
+    btn.style.backgroundColor = '#4CAF50';
     setTimeout(() => {
-        event.target.textContent = 'Adicionar ao Carrinho';
-        event.target.style.backgroundColor = '';
+        btn.textContent = 'Adicionar ao Carrinho';
+        btn.style.backgroundColor = '';
     }, 2000);
 }
 
-// Função para atualizar o contador do carrinho
+// Função para atualizar contador do carrinho
 function atualizarContadorCarrinho() {
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
     
-    // Atualizar no DOM
     if (cartCount) {
         cartCount.textContent = totalItens;
         cartCount.style.display = totalItens > 0 ? 'block' : 'none';
     }
 }
 
-// Função para limpar o carrinho
+// Funções do carrinho
 function limparCarrinho() {
     localStorage.removeItem('carrinho');
     atualizarContadorCarrinho();
 }
 
-// Função para obter todos os itens do carrinho
 function obterItensCarrinho() {
     return JSON.parse(localStorage.getItem('carrinho')) || [];
 }
 
-// Função para calcular o total do carrinho
 function calcularTotalCarrinho() {
     const carrinho = obterItensCarrinho();
     return carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
 }
 
-// Função para remover item do carrinho
 function removerItemCarrinho(produtoId) {
-    let carrinho = obterItensCarrinho();
-    carrinho = carrinho.filter(item => item.id !== produtoId);
+    let carrinho = obterItensCarrinho().filter(item => item.id !== produtoId);
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
     atualizarContadorCarrinho();
 }
 
-// Função para atualizar quantidade de um item
 function atualizarQuantidadeItem(produtoId, novaQuantidade) {
-    if (novaQuantidade < 1) {
-        removerItemCarrinho(produtoId);
-        return;
-    }
-
+    if (novaQuantidade < 1) return removerItemCarrinho(produtoId);
+    
     let carrinho = obterItensCarrinho();
     const item = carrinho.find(item => item.id === produtoId);
-    
     if (item) {
         item.quantidade = novaQuantidade;
         localStorage.setItem('carrinho', JSON.stringify(carrinho));
@@ -313,7 +253,6 @@ if (burger && navLinks) {
         burger.classList.toggle('toggle');
     });
 
-    // Fechar menu ao clicar em um link
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
@@ -333,7 +272,6 @@ if (newsletterForm) {
             alert('Obrigado por assinar nossa newsletter!');
             this.reset();
             
-            // Salvar no localStorage
             const assinantes = JSON.parse(localStorage.getItem('newsletter')) || [];
             assinantes.push(email);
             localStorage.setItem('newsletter', JSON.stringify(assinantes));
@@ -344,31 +282,17 @@ if (newsletterForm) {
 }
 
 // Event listeners para filtros
-if (categoriaSelect) {
-    categoriaSelect.addEventListener('change', carregarProdutos);
-}
-if (precoSelect) {
-    precoSelect.addEventListener('change', carregarProdutos);
-}
-if (ordenarSelect) {
-    ordenarSelect.addEventListener('change', carregarProdutos);
-}
+if (categoriaSelect) categoriaSelect.addEventListener('change', carregarProdutos);
+if (precoSelect) precoSelect.addEventListener('change', carregarProdutos);
+if (ordenarSelect) ordenarSelect.addEventListener('change', carregarProdutos);
 
-// Inicializar
+// Inicialização
 document.addEventListener('DOMContentLoaded', () => {
-    // Verificar se há carrinho no localStorage, se não, criar vazio
     if (!localStorage.getItem('carrinho')) {
         localStorage.setItem('carrinho', JSON.stringify([]));
     }
     
-    // Carregar produtos conforme a página
-    if (destaquesContainer) {
-        carregarProdutosDestaque();
-    }
-    if (produtosContainer) {
-        carregarProdutos();
-    }
-    
-    // Atualizar contador do carrinho
+    if (destaquesContainer) carregarDestaques();
+    if (produtosContainer) carregarProdutos();
     atualizarContadorCarrinho();
 });
