@@ -119,3 +119,51 @@ finalizarCompraBtn.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
     renderizarCarrinho();
 });
+
+//MOBILE
+// Carrinho Mobile-Friendly
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializa eventos para mobile
+    initMobileEvents();
+    
+    // Carrega o carrinho
+    renderizarCarrinho();
+    atualizarContadorCarrinho();
+    
+    // Configura o debug mobile se necessário
+    if (location.search.includes('debug=1')) {
+        setupMobileDebug();
+    }
+});
+
+function initMobileEvents() {
+    // Eventos de toque
+    document.body.addEventListener('touchstart', function() {}, {passive: true});
+    
+    // Botões de compra
+    document.querySelectorAll('.btn-comprar').forEach(btn => {
+        btn.addEventListener('click', handleAddToCart);
+        btn.addEventListener('touchend', handleAddToCart);
+    });
+    
+    // Controles de quantidade
+    document.addEventListener('click', handleQuantityControl);
+    document.addEventListener('touchend', handleQuantityControl);
+}
+
+function handleAddToCart(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const touchEvent = event.type === 'touchend';
+    const target = touchEvent ? event.changedTouches[0].target : event.target;
+    
+    // Evita duplo clique/toque
+    if (event.timeStamp - (target.lastClick || 0) < 1000) return;
+    target.lastClick = event.timeStamp;
+    
+    const produtoId = parseInt(target.closest('[data-id]').dataset.id);
+    // Restante da lógica do carrinho...
+}
+
+// Implemente as outras funções seguindo o mesmo padrão mobile-friendly

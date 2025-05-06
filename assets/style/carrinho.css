@@ -398,3 +398,41 @@ footer {
         margin-top: 80px;
     }
 }
+
+/* Ajustes específicos para mobile */
+@media screen and (max-width: 768px) {
+    .item-carrinho {
+        grid-template-columns: 80px 1fr;
+        grid-template-rows: auto auto;
+        padding: 1rem;
+    }
+    
+    .item-controle {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+        margin-top: 1rem;
+    }
+    
+    .item-controle button {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+    }
+    
+    /* Melhoria para toques em mobile */
+    .btn-comprar, .item-controle button, .remover-item {
+        min-height: 44px; /* Tamanho mínimo para toque */
+        touch-action: manipulation; /* Melhora a resposta ao toque */
+    }
+    
+    /* Previne o zoom duplo-toque */
+    .produto-info, .item-info {
+        touch-action: pan-y;
+    }
+    
+    /* Ajuste para o botão de finalizar compra */
+    #finalizar-compra {
+        padding: 1.2rem;
+        font-size: 1.2rem;
+    }
+}
