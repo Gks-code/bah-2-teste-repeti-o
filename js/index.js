@@ -10,68 +10,34 @@ const produtos = [
         destaque: true
     },
     {
-        id: 2,
-        nome: "Charuto Cohiba Siglo VI",
-        descricao: "Um dos charutos mais cobiçados do mundo, feito à mão em Cuba com folhas de tabaco selecionadas.",
-        preco: 599.90,
-        imagem: "assets/img/Charuto Cohiba Siglo VI.jpg",
-        categoria: "charuto",
-        destaque: true
-    },
-    {
-        id: 3,
-        nome: "Vinho Château Lafite Rothschild 2015",
-        descricao: "Um dos vinhos mais prestigiados de Bordeaux, safra excepcional com aromas de frutas escuras e especiarias.",
-        preco: 4999.90,
-        imagem: "assets/img/Vinho Château Lafite Rothschild 2015.jpg",
-        categoria: "vinho",
-        destaque: true
-    },
-    {
-        id: 4,
-        nome: "Conhaque Louis XIII",
-        descricao: "O ápice da arte do conhaque, envelhecido por décadas em barris de carvalho, com notas de frutas cristalizadas e baunilha.",
-        preco: 12999.90,
-        imagem: "assets/img/Conhaque Louis XIII.jpg",
-        categoria: "conhaque",
-        destaque: true
-    },
-    {
-        id: 5,
-        nome: "Whisky Macallan 18 anos",
-        descricao: "Single malt escocês envelhecido por 18 anos em barris de carvalho, com notas de chocolate e frutas secas.",
-        preco: 2999.90,
-        imagem: "assets/img/Conhaque Louis XIII.jpg",
+        id: 1,
+        nome: "Whisky Johnnie Walker Blue Label",
+        descricao: "Blended Scotch Whisky de luxo com sabores complexos e textura aveludada. Perfeito para ocasiões especiais.",
+        preco: 1899.90,
+        imagem: "assets/img/1.jpg",
         categoria: "whisky",
-        destaque: false
+        destaque: true
     },
     {
-        id: 6,
-        nome: "Vinho Dom Perignon 2012",
-        descricao: "Champagne vintage francês com bolhas refinadas e aromas complexos de frutas brancas e amêndoas.",
-        preco: 1599.90,
-        imagem: "assets/img/Conhaque Louis XIII.jpg",
-        categoria: "vinho",
-        destaque: false
-    },
-    {
-        id: 7,
-        nome: "Charuto Montecristo No. 2",
-        descricao: "Charuto cubano clássico com formato torpedo, oferecendo sabores ricos de madeira e nozes.",
-        preco: 399.90,
-        imagem: "assets/img/Conhaque Louis XIII.jpg",
-        categoria: "charuto",
-        destaque: false
-    },
-    {
-        id: 8,
-        nome: "Whisky Jack Daniel's Single Barrel",
-        descricao: "Whisky Tennessee selecionado de barris únicos, com carácter marcante e notas de caramelo.",
-        preco: 499.90,
-        imagem: "assets/img/Conhaque Louis XIII.jpg",
+        id: 1,
+        nome: "Whisky Johnnie Walker Blue Label",
+        descricao: "Blended Scotch Whisky de luxo com sabores complexos e textura aveludada. Perfeito para ocasiões especiais.",
+        preco: 1899.90,
+        imagem: "assets/img/1.jpg",
         categoria: "whisky",
-        destaque: false
-    }
+        destaque: true
+    },
+    {
+        id: 1,
+        nome: "Whisky Johnnie Walker Blue Label",
+        descricao: "Blended Scotch Whisky de luxo com sabores complexos e textura aveludada. Perfeito para ocasiões especiais.",
+        preco: 1899.90,
+        imagem: "assets/img/1.jpg",
+        categoria: "whisky",
+        destaque: true
+    },
+   
+    // ... (outros produtos permanecem iguais)
 ];
 
 // Elementos do DOM
@@ -81,13 +47,19 @@ const categoriaSelect = document.getElementById('categoria');
 const precoSelect = document.getElementById('preco');
 const ordenarSelect = document.getElementById('ordenar');
 const cartCount = document.getElementById('cart-count');
+const itensCarrinho = document.getElementById('itens-carrinho');
+const subtotalElement = document.getElementById('subtotal');
+const totalElement = document.getElementById('total');
+const finalizarCompraBtn = document.getElementById('finalizar-compra');
 
-// Função para formatar preço
+// ========== FUNÇÕES GERAIS ==========
+
 function formatarPreco(preco) {
     return 'R$ ' + preco.toFixed(2).replace('.', ',');
 }
 
-// Função para carregar produtos em destaque
+// ========== SISTEMA DE PRODUTOS ==========
+
 function carregarDestaques() {
     if (!destaquesContainer) return;
     
@@ -107,22 +79,18 @@ function carregarDestaques() {
         </div>
     `).join('');
     
-    // Adicionar eventos aos botões
     document.querySelectorAll('#destaques .btn-comprar').forEach(btn => {
         btn.addEventListener('click', adicionarAoCarrinho);
     });
 }
 
-// Função para carregar todos os produtos com filtros
 function carregarProdutos() {
     if (!produtosContainer) return;
     
-    // Obter valores dos filtros
     const categoria = categoriaSelect.value;
     const preco = precoSelect.value;
     const ordenar = ordenarSelect.value;
     
-    // Filtrar produtos
     let produtosFiltrados = produtos.filter(produto => {
         if (categoria !== 'todos' && produto.categoria !== categoria) return false;
         
@@ -135,7 +103,6 @@ function carregarProdutos() {
         }
     });
     
-    // Ordenar produtos
     switch(ordenar) {
         case 'preco-asc': produtosFiltrados.sort((a, b) => a.preco - b.preco); break;
         case 'preco-desc': produtosFiltrados.sort((a, b) => b.preco - a.preco); break;
@@ -143,7 +110,6 @@ function carregarProdutos() {
         default: produtosFiltrados.sort((a, b) => b.destaque - a.destaque);
     }
     
-    // Exibir produtos
     produtosContainer.innerHTML = produtosFiltrados.map(produto => `
         <div class="produto-item">
             <div class="produto-imagem">
@@ -159,13 +125,13 @@ function carregarProdutos() {
         </div>
     `).join('');
     
-    // Adicionar eventos aos botões
     document.querySelectorAll('.btn-comprar').forEach(btn => {
         btn.addEventListener('click', adicionarAoCarrinho);
     });
 }
 
-// Função para adicionar produto ao carrinho
+// ========== SISTEMA DE CARRINHO ==========
+
 function adicionarAoCarrinho(event) {
     const produtoId = parseInt(event.target.dataset.id);
     const produto = produtos.find(p => p.id === produtoId);
@@ -199,7 +165,6 @@ function adicionarAoCarrinho(event) {
     }, 2000);
 }
 
-// Função para atualizar contador do carrinho
 function atualizarContadorCarrinho() {
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
@@ -210,38 +175,117 @@ function atualizarContadorCarrinho() {
     }
 }
 
-// Funções do carrinho
-function limparCarrinho() {
-    localStorage.removeItem('carrinho');
-    atualizarContadorCarrinho();
-}
-
-function obterItensCarrinho() {
-    return JSON.parse(localStorage.getItem('carrinho')) || [];
-}
-
-function calcularTotalCarrinho() {
-    const carrinho = obterItensCarrinho();
-    return carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
-}
-
-function removerItemCarrinho(produtoId) {
-    let carrinho = obterItensCarrinho().filter(item => item.id !== produtoId);
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    atualizarContadorCarrinho();
-}
-
-function atualizarQuantidadeItem(produtoId, novaQuantidade) {
-    if (novaQuantidade < 1) return removerItemCarrinho(produtoId);
+function renderizarCarrinho() {
+    if (!itensCarrinho) return;
     
-    let carrinho = obterItensCarrinho();
-    const item = carrinho.find(item => item.id === produtoId);
-    if (item) {
-        item.quantidade = novaQuantidade;
-        localStorage.setItem('carrinho', JSON.stringify(carrinho));
-        atualizarContadorCarrinho();
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    
+    if (carrinho.length === 0) {
+        itensCarrinho.innerHTML = `
+            <div class="carrinho-vazio">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Seu carrinho está vazio</p>
+                <a href="produtos.html" class="btn">Ver Produtos</a>
+            </div>
+        `;
+        if (finalizarCompraBtn) finalizarCompraBtn.disabled = true;
+        return;
     }
+
+    itensCarrinho.innerHTML = carrinho.map(item => `
+        <div class="item-carrinho" data-id="${item.id}">
+            <div class="item-imagem">
+                <img src="${item.imagem}" alt="${item.nome}" onerror="this.src='assets/img/placeholder.jpg'">
+            </div>
+            <div class="item-info">
+                <h3>${item.nome}</h3>
+                <div class="item-preco">${formatarPreco(item.preco)}</div>
+                <button class="remover-item" data-id="${item.id}">
+                    <i class="fas fa-trash"></i> Remover
+                </button>
+            </div>
+            <div class="item-controle">
+                <button class="diminuir" data-id="${item.id}">-</button>
+                <span class="quantidade">${item.quantidade}</span>
+                <button class="aumentar" data-id="${item.id}">+</button>
+            </div>
+        </div>
+    `).join('');
+
+    // Eventos para controle de quantidade
+    document.querySelectorAll('.diminuir').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = parseInt(btn.dataset.id);
+            const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+            const item = carrinho.find(item => item.id === id);
+            
+            if (item.quantidade > 1) {
+                item.quantidade--;
+            } else {
+                carrinho.splice(carrinho.indexOf(item), 1);
+            }
+            
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            renderizarCarrinho();
+            atualizarTotais();
+            atualizarContadorCarrinho();
+        });
+    });
+
+    document.querySelectorAll('.aumentar').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = parseInt(btn.dataset.id);
+            const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+            const item = carrinho.find(item => item.id === id);
+            
+            item.quantidade++;
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            renderizarCarrinho();
+            atualizarTotais();
+            atualizarContadorCarrinho();
+        });
+    });
+
+    document.querySelectorAll('.remover-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = parseInt(btn.dataset.id);
+            let carrinho = JSON.parse(localStorage.getItem('carrinho'));
+            carrinho = carrinho.filter(item => item.id !== id);
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            renderizarCarrinho();
+            atualizarTotais();
+            atualizarContadorCarrinho();
+        });
+    });
+
+    if (finalizarCompraBtn) finalizarCompraBtn.disabled = false;
+    atualizarTotais();
 }
+
+function atualizarTotais() {
+    if (!subtotalElement || !totalElement) return;
+    
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    const subtotal = carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+    
+    subtotalElement.textContent = formatarPreco(subtotal);
+    totalElement.textContent = formatarPreco(subtotal);
+}
+
+function finalizarCompra() {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho'));
+    const total = carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+    
+    let mensagem = "Olá, gostaria de finalizar minha compra:\n\n";
+    carrinho.forEach(item => {
+        mensagem += `${item.nome} - ${item.quantidade}x - ${formatarPreco(item.preco * item.quantidade)}\n`;
+    });
+    mensagem += `\nTotal: ${formatarPreco(total)}`;
+    
+    window.open(`https://wa.me/SEUNUMERO?text=${encodeURIComponent(mensagem)}`, '_blank');
+}
+
+// ========== EVENT LISTENERS ==========
 
 // Menu Mobile
 const burger = document.querySelector('.burger');
@@ -281,12 +325,18 @@ if (newsletterForm) {
     });
 }
 
-// Event listeners para filtros
+// Filtros
 if (categoriaSelect) categoriaSelect.addEventListener('change', carregarProdutos);
 if (precoSelect) precoSelect.addEventListener('change', carregarProdutos);
 if (ordenarSelect) ordenarSelect.addEventListener('change', carregarProdutos);
 
-// Inicialização
+// Finalizar compra
+if (finalizarCompraBtn) {
+    finalizarCompraBtn.addEventListener('click', finalizarCompra);
+}
+
+// ========== INICIALIZAÇÃO ==========
+
 document.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem('carrinho')) {
         localStorage.setItem('carrinho', JSON.stringify([]));
@@ -294,5 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (destaquesContainer) carregarDestaques();
     if (produtosContainer) carregarProdutos();
+    if (itensCarrinho) renderizarCarrinho();
     atualizarContadorCarrinho();
 });
