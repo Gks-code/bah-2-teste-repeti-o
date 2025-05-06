@@ -436,3 +436,27 @@ footer {
         font-size: 1.2rem;
     }
 }
+
+/* Adicione estas regras */
+@media (max-width: 768px) {
+    .btn-comprar, .item-controle button {
+        min-width: 44px;
+        min-height: 44px; /* Tamanho mínimo para toques */
+    }
+    
+    .item-carrinho {
+        grid-template-columns: 80px 1fr;
+        grid-template-areas:
+            "imagem info"
+            "controle controle";
+    }
+    
+    .item-imagem { grid-area: imagem; }
+    .item-info { grid-area: info; }
+    .item-controle { 
+        grid-area: controle;
+        justify-self: start;
+        margin-top: 10px;
+    }
+}
+
